@@ -2,7 +2,8 @@ import { ObjectId } from "mongodb";
 
 import { Router, getExpressRouter } from "./framework/router";
 
-import { Friend, Post, User, WebSession } from "./app";
+import { Area, Friend, Post, User, WebSession } from "./app";
+import { AreaDoc } from "./concepts/area";
 import { PostDoc, PostOptions } from "./concepts/post";
 import { UserDoc } from "./concepts/user";
 import { WebSessionDoc } from "./concepts/websession";
@@ -135,6 +136,48 @@ class Routes {
     const user = WebSession.getUser(session);
     const fromId = (await User.getUserByUsername(from))._id;
     return await Friend.rejectRequest(fromId, user);
+  }
+
+  @Router.get("/areas")
+  async getAreas(title?: string) {
+    let areas;
+    if (title) {
+      areas = [await Area.getByTitle(title)];
+    } else {
+      areas = await Area.getAreas({});
+    }
+    return areas;
+  }
+
+  @Router.get("/areas/:_id/subareas")
+  async getSubareas(_id: ObjectId) {
+    return await Area.getSubareas(_id);
+  }
+
+  @Router.post("/areas")
+  async createArea(session: WebSessionDoc, title: string, location: string, parentArea?: ObjectId) {
+    // assert user is logged in
+    WebSession.getUser(session);
+    if (!parentArea) {
+      // for now, if area doesn't have a parent, give it a parent id of 0
+      parentArea = new ObjectId(0);
+    }
+    const created = await Area.create(title, location, parentArea);
+    return { msg: created.msg, area: created.area };
+  }
+
+  @Router.patch("/areas/:_id")
+  async updateArea(session: WebSessionDoc, _id: ObjectId, update: Partial<AreaDoc>) {
+    // assert user is logged in
+    WebSession.getUser(session);
+    return await Area.update(_id, update);
+  }
+
+  @Router.delete("/areas/:_id")
+  async deleteArea(session: WebSessionDoc, _id: ObjectId) {
+    // assert user is logged in
+    WebSession.getUser(session);
+    return Area.delete(_id);
   }
 }
 
