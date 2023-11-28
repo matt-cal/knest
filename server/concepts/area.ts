@@ -59,9 +59,19 @@ export default class AreaConcept {
     return { msg: "Area successfully updated!" };
   }
 
-  async delete(_id: ObjectId) {
+  async deleteByObjectId(_id: ObjectId) {
     await this.areas.deleteOne({ _id });
     return { msg: "Area deleted successfully!" };
+  }
+
+  async deleteByLocation(location: string) {
+    await this.areas.deleteMany({ location });
+    return { msg: "Area(s) deleted successfully!"};
+  }
+
+  async deleteChildren(parentArea: ObjectId) {
+    await this.areas.deleteMany({ parentArea });
+    return { msg: "Child Area(s) deleted successfully!"};
   }
 
   private sanitizeUpdate(update: Partial<AreaDoc>) {
