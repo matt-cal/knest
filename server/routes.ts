@@ -177,7 +177,7 @@ class Routes {
   async deleteArea(session: WebSessionDoc, _id: ObjectId) {
     // assert user is logged in
     WebSession.getUser(session);
-    return Area.delete(_id);
+    return Area.deleteByObjectId(_id);
   }
 }
 
