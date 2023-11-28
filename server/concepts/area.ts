@@ -13,6 +13,9 @@ export default class AreaConcept {
   public readonly areas = new DocCollection<AreaDoc>("areas");
 
   async create(title: string, location: string, parentArea: ObjectId) {
+    if (await this.areas.readOne({ title })) {
+      throw new NotAllowedError(`Area named ${title} already exists!`);
+    }
     const _id = await this.areas.createOne({ title, location, parentArea });
     return { msg: "Area successfully created!", area: await this.areas.readOne({ _id }) };
   }
@@ -51,6 +54,14 @@ export default class AreaConcept {
   async areaExists(_id: ObjectId) {
     const post = await this.areas.readOne({ _id });
     return post !== null;
+  }
+
+  async getByTitle(title: string) {
+    const area = await this.areas.readOne({ title });
+    if (area === null) {
+      throw new NotFoundError(`Area "${title}" not found!`);
+    }
+    return area;
   }
 
   async update(_id: ObjectId, update: Partial<AreaDoc>) {
