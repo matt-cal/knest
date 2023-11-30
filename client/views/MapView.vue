@@ -1,13 +1,30 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
+interface location {
+  lng: number;
+  lat: number;
+}
+
+const loc = ref<location>({lat: 42.361145, lng: -71.057083});
+
+function setPlace(data: any) {
+  loc.value.lat = data.geometry.location.lat();
+  loc.value.lng = data.geometry.location.lng();
+}
+
 </script>
 
 <template>
   <main>
-    <h1>Home Page</h1>
+    <GMapAutocomplete
+      placeholder="Pick a Location"
+      @place_changed="setPlace"
+      >
+    </GMapAutocomplete>
     <GMapMap
-        :center="{lat: 42.361145, lng: -71.057083}"
+        :center="loc"
         :zoom="13"
-        map-type-id="terrain"
         style="left: 5vw; width: 90vw; height: 70vh;"
     />
   </main>
