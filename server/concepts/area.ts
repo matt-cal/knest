@@ -12,7 +12,15 @@ export interface AreaDoc extends BaseDoc {
 export default class AreaConcept {
   public readonly areas = new DocCollection<AreaDoc>("areas");
 
-  async create(title: string, location: string, parentArea: ObjectId) {
+  async create(title: string, location: string, parentAreaTitle: string | undefined) {
+    console.log("create");
+    let parentArea;
+    if (!parentAreaTitle) {
+      // for now, if area doesn't have a parent, give it a parent id of 0
+      parentArea = new ObjectId("000000000000000000000000");
+    } else {
+      parentArea = (await this.getByTitle(parentAreaTitle))._id;
+    }
     if (await this.areas.readOne({ title })) {
       throw new NotAllowedError(`Area named ${title} already exists!`);
     }
@@ -77,12 +85,12 @@ export default class AreaConcept {
 
   async deleteByLocation(location: string) {
     await this.areas.deleteMany({ location });
-    return { msg: "Area(s) deleted successfully!"};
+    return { msg: "Area(s) deleted successfully!" };
   }
 
   async deleteChildren(parentArea: ObjectId) {
     await this.areas.deleteMany({ parentArea });
-    return { msg: "Child Area(s) deleted successfully!"};
+    return { msg: "Child Area(s) deleted successfully!" };
   }
 
   private sanitizeUpdate(update: Partial<AreaDoc>) {

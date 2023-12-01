@@ -139,10 +139,12 @@ class Routes {
   }
 
   @Router.get("/areas")
-  async getAreas(title?: string) {
+  async getAreas(title?: string, _id?: ObjectId) {
     let areas;
     if (title) {
       areas = [await Area.getByTitle(title)];
+    } else if (_id) {
+      areas = [await Area.getArea(_id)];
     } else {
       areas = await Area.getAreas({});
     }
@@ -155,14 +157,10 @@ class Routes {
   }
 
   @Router.post("/areas")
-  async createArea(session: WebSessionDoc, title: string, location: string, parentArea?: ObjectId) {
+  async createArea(session: WebSessionDoc, title: string, location: string, parentAreaTitle?: string) {
     // assert user is logged in
     WebSession.getUser(session);
-    if (!parentArea) {
-      // for now, if area doesn't have a parent, give it a parent id of 0
-      parentArea = new ObjectId(0);
-    }
-    const created = await Area.create(title, location, parentArea);
+    const created = await Area.create(title, location, parentAreaTitle);
     return { msg: created.msg, area: created.area };
   }
 
