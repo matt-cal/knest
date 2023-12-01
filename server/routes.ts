@@ -71,9 +71,9 @@ class Routes {
   }
 
   @Router.post("/posts")
-  async createPost(session: WebSessionDoc, content: string, options?: PostOptions) {
+  async createPost(session: WebSessionDoc, content: string, area: string, options?: PostOptions) {
     const user = WebSession.getUser(session);
-    const created = await Post.create(user, content, options);
+    const created = await Post.create(user, content, area, options);
     return { msg: created.msg, post: await Responses.post(created.post) };
   }
 
@@ -154,6 +154,14 @@ class Routes {
   @Router.get("/areas/:_id/subareas")
   async getSubareas(_id: ObjectId) {
     return await Area.getSubareas(_id);
+  }
+
+  // get the posts linked to the area with the given title
+  @Router.get("/areas/:title/posts")
+  async getAreaPosts(title: string) {
+    const area = await Area.getByTitle(title);
+    const posts = await Post.getPosts({ area: area.title });
+    return Responses.posts(posts);
   }
 
   @Router.post("/areas")

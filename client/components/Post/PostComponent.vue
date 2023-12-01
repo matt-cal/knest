@@ -20,6 +20,7 @@ const deletePost = async () => {
 
 <template>
   <p class="author">{{ props.post.author }}</p>
+  <p>Area: {{ props.post.area }}</p>
   <p>{{ props.post.content }}</p>
   <div class="base">
     <menu v-if="props.post.author == currentUsername">
