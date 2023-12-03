@@ -73,6 +73,8 @@ class Routes {
   @Router.post("/posts")
   async createPost(session: WebSessionDoc, content: string, area: string, options?: PostOptions) {
     const user = WebSession.getUser(session);
+    // assert area exists
+    await Area.getByTitle(area);
     const created = await Post.create(user, content, area, options);
     return { msg: created.msg, post: await Responses.post(created.post) };
   }

@@ -60,8 +60,8 @@ export default class AreaConcept {
    * return true if area with given _id exists, false otherwise
    */
   async areaExists(_id: ObjectId) {
-    const post = await this.areas.readOne({ _id });
-    return post !== null;
+    const area = await this.areas.readOne({ _id });
+    return area !== null;
   }
 
   async getByTitle(title: string) {
