@@ -3,8 +3,9 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import { useUserStore } from "@/stores/user";
 import HomeView from "../views/HomeView.vue";
-import MapView from "../views/MapView.vue";
 import LoginView from "../views/LoginView.vue";
+import MapView from "../views/MapView.vue";
+import NeighborhoodViewVue from "../views/NeighborhoodView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 import SettingView from "../views/SettingView.vue";
 
@@ -38,6 +39,11 @@ const router = createRouter({
       path: "/map",
       name: "Map",
       component: MapView,
+    },
+    {
+      path: "/neighborhood/:area",
+      name: "Neighborhood",
+      component: NeighborhoodViewVue,
     },
     {
       path: "/:catchAll(.*)",

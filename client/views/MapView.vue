@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import MapAreaComponent from "../components/Area/MapAreaComponent.vue";
 
 interface location {
   lng: number;
@@ -18,7 +19,7 @@ function setPlace(data: any) {
   <main>
     <GMapAutocomplete placeholder="Pick a Location" @place_changed="setPlace"> </GMapAutocomplete>
     <GMapMap :center="loc" :zoom="13" style="left: 5vw; width: 90vw; height: 70vh">
-      <GMapPolygon :style="options" :paths="path1" />
+      <MapAreaComponent :paths="path1" :areaTitle="'Back Bay'" />
       <GMapPolygon :paths="path2" />
       <GMapPolygon :paths="path3" />
     </GMapMap>
