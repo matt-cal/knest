@@ -14,7 +14,7 @@ const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
       <h1 v-if="isLoggedIn">Welcome {{ currentUsername }}!</h1>
       <h1 v-else>Please login!</h1>
     </section>
-    <TempAreaListComponent />
+    <TempAreaListComponent/>
     <PostListComponent />
   </main>
 </template>
@@ -22,5 +22,8 @@ const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
 <style scoped>
 h1 {
   text-align: center;
+}
+.align{
+  justify-content: center;
 }
 </style>

@@ -1,8 +1,12 @@
 <script setup lang="ts">
+<<<<<<< HEAD
 import EditPostForm from "@/components/Post/EditPostForm.vue";
 import PostComponent from "@/components/Post/PostComponent.vue";
 import { fetchy } from "@/utils/fetchy";
 import { onBeforeMount, ref } from "vue";
+=======
+import Review from "@/components/Review/CreateReview.vue";
+>>>>>>> b36e9d1 (review concept initated)
 import { useRoute } from "vue-router";
 
 const loaded = ref(false);
@@ -33,6 +37,7 @@ onBeforeMount(async () => {
 
 <template>
   <h1>{{ currentRoute.params.area }}</h1>
+<<<<<<< HEAD
   <section class="posts" v-if="loaded && posts.length !== 0">
     <article v-for="post in posts" :key="post._id">
       <PostComponent v-if="editing !== post._id" :post="post" @refreshPosts="getPosts" @editPost="updateEditing" />
@@ -41,6 +46,9 @@ onBeforeMount(async () => {
   </section>
   <p v-else-if="loaded">No posts found</p>
   <p v-else>Loading...</p>
+=======
+  <Review/>
+>>>>>>> b36e9d1 (review concept initated)
 </template>
 <style scoped>
 section {

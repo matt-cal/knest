@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 
 import { Router, getExpressRouter } from "./framework/router";
 
-import { Area, Friend, Post, User, WebSession } from "./app";
+import { Area, Friend, Post, Review, User, WebSession } from "./app";
 import { AreaDoc } from "./concepts/area";
 import { PostDoc, PostOptions } from "./concepts/post";
 import { UserDoc } from "./concepts/user";
@@ -186,6 +186,40 @@ class Routes {
     // assert user is logged in
     WebSession.getUser(session);
     return Area.deleteByObjectId(_id);
+  }
+
+  @Router.get("/reviews")
+  async getReviews(area?: string) {
+    let reviews;
+    if (area) {
+      reviews = await Review.getByArea(area);
+    } else {
+      reviews = "Area does not exist";
+    }
+    return reviews;
+  }
+
+  @Router.post("/reviews")
+  async createReview(session: WebSessionDoc, content: string, area: string, options?: PostOptions) {
+    const user = WebSession.getUser(session);
+    // assert area exists
+    await Area.getByTitle(area);
+    const created = await Review.create(user, content, area, options);
+    return { msg: created.msg, review: created.review };
+  }
+
+  @Router.patch("/reviews/:_id")
+  async updateReview(session: WebSessionDoc, _id: ObjectId, update: Partial<PostDoc>) {
+    const user = WebSession.getUser(session);
+    await Review.isAuthor(user, _id);
+    return await Review.update(_id, update);
+  }
+
+  @Router.delete("/reviews/:_id")
+  async deleteReview(session: WebSessionDoc, _id: ObjectId) {
+    const user = WebSession.getUser(session);
+    await Review.isAuthor(user, _id);
+    return Review.delete(_id);
   }
 }
 

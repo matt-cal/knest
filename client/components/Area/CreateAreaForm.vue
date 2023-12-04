@@ -27,6 +27,7 @@ const emptyForm = () => {
 </script>
 
 <template>
+  <div class="alignment">
   <form @submit.prevent="createArea(title, location, parentAreaTitle)">
     <h3>Temporary form for creating Areas:</h3>
     <input id="title" v-model="title" placeholder="Area Title" required />
@@ -34,4 +35,15 @@ const emptyForm = () => {
     <input id="content" v-model="parentAreaTitle" placeholder="Parent Area Title (optional)" />
     <button type="submit" class="pure-button-primary pure-button">Create Area</button>
   </form>
+</div>
 </template>
+
+<style scoped>
+
+.alignment{
+  display:flex;
+  justify-content:center;
+  justify-align:center;
+
+}
+</style>
