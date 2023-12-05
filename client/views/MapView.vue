@@ -23,7 +23,6 @@ function setPlace(data: any) {
       <MapAreaComponent :paths="beaconHill" :areaTitle="'Beacon Hill'" />
       <MapAreaComponent :paths="westEnd" :areaTitle="'West End'" />
       <MapAreaComponent :paths="northEnd" :areaTitle="'North End'" />
-      <MapAreaComponent :paths="backBay" :areaTitle="'Back Bay'" />
       <MapAreaComponent :paths="bayVillage" :areaTitle="'Bay Village'" />
       <MapAreaComponent :paths="charlestown" :areaTitle="'Charlestown'" />
       <MapAreaComponent :paths="eastBoston" :areaTitle="'East Boston'" />
