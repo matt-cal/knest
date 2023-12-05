@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import EditPostForm from "@/components/Post/EditPostForm.vue";
-import PostComponent from "@/components/Post/PostComponent.vue";
 import CreateReviewForm from "@/components/Review/CreateReview.vue";
+import EditReviewForm from "@/components/Review/EditReviewForm.vue";
+import ReviewComponent from "@/components/Review/ReviewComponent.vue";
+import SearchReviewForm from "@/components/Review/SearchReviewForm.vue";
 import { useUserStore } from "@/stores/user";
 import { fetchy } from "@/utils/fetchy";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, ref } from "vue";
-import SearchPostForm from "./SearchPostForm.vue";
-
 const { isLoggedIn } = storeToRefs(useUserStore());
 
 const loaded = ref(false);
@@ -39,21 +38,21 @@ onBeforeMount(async () => {
 
 <template>
   <section v-if="isLoggedIn">
-    <h2>Create a post:</h2>
+    <h2>Create a Review:</h2>
     <CreateReviewForm @refreshPosts="getReviews" />
   </section>
   <div class="row">
     <h2 v-if="!searchArea">Reviews:</h2>
     <h2 v-else>Reviews for {{ searchArea }}:</h2>
-    <SearchPostForm @getReviewsByArea="getReviews" />
+    <SearchReviewForm @getByArea="getReviews" />
   </div>
   <section class="posts" v-if="loaded && reviews.length !== 0">
     <article v-for="review in reviews" :key="review._id">
-      <PostComponent v-if="editing !== review._id" :post="review" @refreshPosts="getReviews" @editPost="updateEditing" />
-      <EditPostForm v-else :post="review" @refreshPosts="getReviews" @editPost="updateEditing" />
+      <ReviewComponent v-if="editing !== review._id" :post="review" @refreshPosts="getReviews" @editPost="updateEditing" />
+      <EditReviewForm v-else :post="review" @refreshPosts="getReviews" @editPost="updateEditing" />
     </article>
   </section>
-  <p v-else-if="loaded">No posts found</p>
+  <p v-else-if="loaded">No reviews found</p>
   <p v-else>Loading...</p>
 </template>
 
