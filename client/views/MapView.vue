@@ -29,7 +29,7 @@ function setPlace(data: any) {
       <MapAreaComponent :paths="eastBoston" :areaTitle="'East Boston'" />
       <MapAreaComponent :paths="southBoston" :areaTitle="'South Boston'" />
       <MapAreaComponent :paths="waterfront" :areaTitle="'Waterfront'" />
-      <MapAreaComponent :paths="fenwayKenmore" :areaTitle="'Fenway/Kenmore'" />
+      <MapAreaComponent :paths="fenwayKenmore" :areaTitle="'Fenway Kenmore'" />
       <MapAreaComponent :paths="downtown" :areaTitle="'Downtown'" />
       <MapAreaComponent :paths="chinatown" :areaTitle="'Chinatown'" />
       <MapAreaComponent :paths="southEnd" :areaTitle="'South End'" />
@@ -38,7 +38,7 @@ function setPlace(data: any) {
       <MapAreaComponent :paths="roxbury" :areaTitle="'Roxbury'" />
       <MapAreaComponent :paths="mattapan" :areaTitle="'Mattapan'" />
       <MapAreaComponent :paths="dorchester" :areaTitle="'Dorchester'" />
-      <MapAreaComponent :paths="allstonBrighton" :areaTitle="'Allston/Brighton'" />
+      <MapAreaComponent :paths="allstonBrighton" :areaTitle="'Allston Brighton'" />
       <MapAreaComponent :paths="hydePark" :areaTitle="'Hyde Park'" />
       <MapAreaComponent :paths="westRoxbury" :areaTitle="'West Roxbury'" />
       <MapAreaComponent :paths="roslindale" :areaTitle="'Roslindale'" />
