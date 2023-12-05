@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import EditPostForm from "@/components/Post/EditPostForm.vue";
 import PostComponent from "@/components/Post/PostComponent.vue";
-// import Review from "@/components/Review/CreateReview.vue";
+import Review from "@/components/Review/CreateReview.vue";
 import { fetchy } from "@/utils/fetchy";
 import { onBeforeMount, ref } from "vue";
 import { useRoute } from "vue-router";
