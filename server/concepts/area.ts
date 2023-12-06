@@ -52,8 +52,10 @@ export default class AreaConcept {
     if (!this.areaExists(_id)) {
       throw new NotFoundError(`Area ${_id} does not exist!`);
     }
-    const areas = await this.getAreas({ parentArea: _id });
-    return areas;
+    const areas = await this.getAreas({});
+    const out = areas.filter((a) => a.parentArea.toString() === _id.toString());
+
+    return out;
   }
 
   /**

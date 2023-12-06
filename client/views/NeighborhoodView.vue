@@ -5,6 +5,7 @@ import Review from "@/components/Review/CreateReview.vue";
 import { fetchy } from "@/utils/fetchy";
 import { onBeforeMount, ref } from "vue";
 import { useRoute } from "vue-router";
+import router from "../router";
 
 const loaded = ref(false);
 let posts = ref<Array<Record<string, string>>>([]);
@@ -26,6 +27,10 @@ function updateEditing(id: string) {
   editing.value = id;
 }
 
+async function newPost() {
+  void router.push({ name: "CreatePost", params: { area: areaTitle } });
+}
+
 onBeforeMount(async () => {
   await getPosts();
   loaded.value = true;
@@ -34,6 +39,7 @@ onBeforeMount(async () => {
 
 <template>
   <h1>{{ currentRoute.params.area }}</h1>
+  <button @click="newPost">New Post</button>
   <section class="posts" v-if="loaded && posts.length !== 0">
     <article v-for="post in posts" :key="post._id">
       <PostComponent v-if="editing !== post._id" :post="post" @refreshPosts="getPosts" @editPost="updateEditing" />

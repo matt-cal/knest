@@ -2,6 +2,7 @@ import { storeToRefs } from "pinia";
 import { createRouter, createWebHistory } from "vue-router";
 
 import { useUserStore } from "@/stores/user";
+import CreatePostViewVue from "../views/CreatePostView.vue";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import MapView from "../views/MapView.vue";
@@ -44,6 +45,12 @@ const router = createRouter({
       path: "/neighborhood/:area",
       name: "Neighborhood",
       component: NeighborhoodViewVue,
+    },
+    {
+      path: "/CreatePost/:area",
+      name: "CreatePost",
+      component: CreatePostViewVue,
+      meta: { requiresAuth: true },
     },
     {
       path: "/:catchAll(.*)",
