@@ -21,7 +21,6 @@ async function updatePassword() {
 </script>
 
 <template>
-  <h2>Update user details</h2>
   <form @submit.prevent="updateUsername" class="pure-form">
     <fieldset>
       <legend>Change your username</legend>
