@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import CreateForm from "@/components/Form/CreateForm.vue";
 import EditPostForm from "@/components/Post/EditPostForm.vue";
 import PostComponent from "@/components/Post/PostComponent.vue";
 import RatingComponent from "@/components/Rating/RatingComponent.vue";
-import Review from "@/components/Review/CreateReview.vue";
 import { fetchy } from "@/utils/fetchy";
 import { computed, onBeforeMount, ref } from "vue";
 import { useRoute } from "vue-router";
@@ -55,6 +53,10 @@ async function newPost() {
   void router.push({ name: "CreatePost", params: { area: areaTitle } });
 }
 
+async function newReview() {
+  void router.push({ name: "CreateReview", params: { area: areaTitle } });
+}
+
 onBeforeMount(async () => {
   await getPosts();
   loaded.value = true;
@@ -65,10 +67,11 @@ onBeforeMount(async () => {
   <h1>{{ currentRoute.params.area }}</h1>
   <section>
     <article>
-      <RatingComponent :area-title="areaTitle"/>
+      <RatingComponent :area-title="areaTitle" />
     </article>
   </section>
   <button @click="newPost">New Post</button>
+  <button @click="newReview">New Review</button>
   <section class="posts" v-if="loaded && posts.length !== 0">
     <span>
       <p>Sort By:</p>
@@ -82,8 +85,6 @@ onBeforeMount(async () => {
   </section>
   <p v-else-if="loaded">No posts found</p>
   <p v-else>Loading...</p>
-  <CreateForm/>
-  <Review/>
 </template>
 <style scoped>
 section {

@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import { fetchy } from "../../utils/fetchy";
 
+const props = defineProps(["areaTitle"]);
 const content = ref("");
 const area = ref("");
 const emit = defineEmits(["refreshPosts"]);
+
+const value = ref();
 
 const createReview = async (content: string) => {
   try {
@@ -22,15 +25,32 @@ const emptyForm = () => {
   content.value = "";
   area.value = "";
 };
+
+onBeforeMount(async () => {
+  value.value = 50;
+});
 </script>
 
 <template>
-  <form @submit.prevent="createReview(content)">
-    <label for="content">Review Content:</label>
-    <textarea id="content" v-model="content" placeholder="Create a review!" required> </textarea>
-    <input v-model="area" placeholder="Area Title" required />
-    <button type="submit" class="pure-button-primary pure-button">Create Review</button>
-  </form>
+  <div class="sliders-container">
+    <div class="slider-input">
+      <p>Category</p>
+      <div>
+        <InputText
+          v-model="value"
+          :pt="{
+            root: { class: 'input' },
+          }"
+        />
+        <SliderComponent
+          v-model.number="value"
+          :pt="{
+            root: { class: 'slider' },
+          }"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -50,5 +70,25 @@ textarea {
   padding: 0.5em;
   border-radius: 4px;
   resize: none;
+}
+
+.input {
+  width: 250px;
+  border-color: darkblue;
+}
+
+.slider {
+  width: 250px;
+}
+
+.sliders-container {
+  display: flex;
+  justify-content: center;
+}
+
+.slider-input {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
 }
 </style>

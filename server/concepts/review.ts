@@ -15,7 +15,7 @@ export interface ReviewDoc extends BaseDoc {
 }
 
 export default class ReviewConcept {
-  public readonly reviews = new DocCollection<ReviewDoc>("posts");
+  public readonly reviews = new DocCollection<ReviewDoc>("reviews");
 
   async create(author: ObjectId, content: string, area: string, options?: PostOptions) {
     const _id = await this.reviews.createOne({ author, content, area, options });

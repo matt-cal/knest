@@ -10,6 +10,12 @@ import VueGoogleMaps from "@fawmi/vue-google-maps";
 import App from "./App.vue";
 import router from "./router";
 
+import PrimeVue from "primevue/config";
+import InputText from "primevue/inputtext";
+import "primevue/resources/primevue.min.css";
+import "primevue/resources/themes/lara-light-indigo/theme.css";
+import Slider from "primevue/slider";
+
 const app = createApp(App);
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedState);
@@ -22,5 +28,8 @@ app.use(VueGoogleMaps, {
     libraries: "places",
   },
 });
+app.use(PrimeVue);
+app.component("SliderComponent", Slider);
+app.component("InputText", InputText);
 
 app.mount("#app");
