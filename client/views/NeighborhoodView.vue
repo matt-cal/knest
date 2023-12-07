@@ -20,27 +20,30 @@ onBeforeMount(async () => {});
 </script>
 
 <template>
+  <main class="color">
   <h1>{{ currentRoute.params.area }}</h1>
   <section>
     <article>
       <RatingComponent :area-title="areaTitle" />
     </article>
   </section>
-  <button @click="newPost">New Post</button>
-  <button @click="newReview">New Rating</button>
+  <button @click="newPost" class="button">New Post</button>
+  <button @click="newReview" class="button">New Rating</button>
   <NeighborhoodPostListComponent :areaTitle="areaTitle" />
+</main>
 </template>
+
+
 <style scoped>
 section {
   display: flex;
   flex-direction: column;
-  gap: 1em;
 }
 
 section,
 p,
 .row {
-  margin: 0 auto;
+  margin: auto;
   max-width: 60em;
 }
 
@@ -59,5 +62,19 @@ article {
 
 .underline {
   text-decoration: underline;
+}
+
+.color{
+  background-color: #caddeb;
+  height: 100vh;
+}
+
+.button {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  background-color:rgb(222, 227, 210);
+  width: 140px;
+  border-radius: 20px;
 }
 </style>
