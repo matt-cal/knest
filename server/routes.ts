@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 
 import { Router, getExpressRouter } from "./framework/router";
 
-import { Area, Post, Review, User, WebSession } from "./app";
+import { Area, Post, Review, Upvote, User, WebSession } from "./app";
 import { AreaDoc } from "./concepts/area";
 import { PostDoc, PostOptions } from "./concepts/post";
 import { UserDoc } from "./concepts/user";
@@ -173,6 +173,47 @@ class Routes {
     const user = WebSession.getUser(session);
     await Review.isAuthor(user, _id);
     return Review.delete(_id);
+  }
+
+  // create upvote on post with given id
+  @Router.post("/upvotes/:_id")
+  async createUpvote(session: WebSessionDoc, _id: ObjectId) {
+    const user = WebSession.getUser(session);
+    const post = (await Post.getPosts({ _id }))[0]._id;
+    const created = await Upvote.create(user, post);
+    return { msg: created.msg, upvote: created.upvote };
+  }
+
+  // delete like on post with given id
+  @Router.delete("/upvotes/:_id")
+  async deleteUpvote(session: WebSessionDoc, _id: ObjectId) {
+    const user = WebSession.getUser(session);
+    const post = (await Post.getPosts({ _id }))[0]._id;
+    const upvoteId = (await Upvote.getByOwnerPost(post, user))._id;
+    await Upvote.isOwner(user, upvoteId);
+    return await Upvote.delete(upvoteId);
+  }
+
+  @Router.get("/user/:username/upvotes")
+  async getUserUpvotes(username: string) {
+    const id = (await User.getUserByUsername(username))._id;
+    const upvotes = await Upvote.getByOwner(id);
+    return upvotes;
+  }
+
+  @Router.get("/post/:_id/upvotes")
+  async getPostUpvotes(_id: ObjectId) {
+    const id = (await Post.getPosts({ _id }))[0]._id;
+    const upvotes = await Upvote.getByPost(id);
+    return upvotes;
+  }
+
+  // see if logged in user has liked given post
+  @Router.get("/user/upvoted/:_id")
+  async didUserUpvote(session: WebSessionDoc, _id: ObjectId) {
+    const user = WebSession.getUser(session);
+    const postId = (await Post.getPosts({ _id }))[0]._id;
+    return await Upvote.didUserUpvote(postId, user);
   }
 }
 
