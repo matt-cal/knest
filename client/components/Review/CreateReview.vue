@@ -5,7 +5,6 @@ import { fetchy } from "../../utils/fetchy";
 const props = defineProps(["areaTitle"]);
 const content = ref("");
 const area = ref("");
-const emit = defineEmits(["refreshPosts"]);
 
 const affordability = ref();
 const walkability = ref();
@@ -34,7 +33,6 @@ const createReview = async () => {
   } catch (_) {
     return;
   }
-  // emit("refreshPosts");
   emptyForm();
 };
 

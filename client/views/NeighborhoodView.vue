@@ -1,53 +1,12 @@
 <script setup lang="ts">
-import EditPostForm from "@/components/Post/EditPostForm.vue";
-import PostComponent from "@/components/Post/PostComponent.vue";
 import RatingComponent from "@/components/Rating/RatingComponent.vue";
-import { fetchy } from "@/utils/fetchy";
-import { computed, onBeforeMount, ref } from "vue";
+import { onBeforeMount } from "vue";
 import { useRoute } from "vue-router";
+import NeighborhoodPostListComponent from "../components/Post/NeighborhoodPostListComponent.vue";
 import router from "../router";
 
-const loaded = ref(false);
-const postsByDate = ref<Array<Record<string, string>>>([]);
-const postsByUpvotes = ref<Array<Record<string, string>>>([]); // sorted by number of upvotes
-const sortByUpvotes = ref(true);
-const posts = computed(() => (sortByUpvotes.value ? postsByUpvotes.value : postsByDate.value));
-const editing = ref("");
 const currentRoute = useRoute();
-const areaTitle = currentRoute.areaTitleparams.area;
-
-async function getPosts() {
-  let postResults;
-  try {
-    postResults = await fetchy(`/api/areas/${areaTitle}/posts`, "GET");
-  } catch (_) {
-    return;
-  }
-  postsByDate.value = postResults;
-
-  // get posts array sorted by number of upvotes
-  const postUpvotes = new Map();
-  for (const post of postResults) {
-    const numUpvotes = await fetchy(`/api/post/${post._id}/upvotes`, "GET");
-    postUpvotes.set(post._id, numUpvotes);
-  }
-  // make copy of postResults so that postsByDate is not modified when postsByUpvotes is sorted
-  postsByUpvotes.value = [...postResults];
-  postsByUpvotes.value.sort((a: Record<string, string>, b: Record<string, string>) => {
-    const aUpvotes = postUpvotes.get(a._id);
-    const bUpvotes = postUpvotes.get(b._id);
-    if (aUpvotes > bUpvotes) {
-      return -1;
-    } else if (aUpvotes < bUpvotes) {
-      return 1;
-    }
-    return 0;
-  });
-}
-
-function updateEditing(id: string) {
-  editing.value = id;
-}
+const areaTitle = currentRoute.params.area;
 
 async function newPost() {
   void router.push({ name: "CreatePost", params: { area: areaTitle } });
@@ -57,10 +16,7 @@ async function newReview() {
   void router.push({ name: "CreateReview", params: { area: areaTitle } });
 }
 
-onBeforeMount(async () => {
-  await getPosts();
-  loaded.value = true;
-});
+onBeforeMount(async () => {});
 </script>
 
 <template>
@@ -71,20 +27,8 @@ onBeforeMount(async () => {
     </article>
   </section>
   <button @click="newPost">New Post</button>
-  <button @click="newReview">New Review</button>
-  <section class="posts" v-if="loaded && posts.length !== 0">
-    <span>
-      <p>Sort By:</p>
-      <button :class="{ underline: sortByUpvotes }" @click="() => (sortByUpvotes = true)">Upvotes</button>
-      <button :class="{ underline: !sortByUpvotes }" @click="() => (sortByUpvotes = false)">Date</button>
-    </span>
-    <article v-for="post in posts" :key="post._id">
-      <PostComponent v-if="editing !== post._id" :post="post" @refreshPosts="getPosts" @editPost="updateEditing" />
-      <EditPostForm v-else :post="post" @refreshPosts="getPosts" @editPost="updateEditing" />
-    </article>
-  </section>
-  <p v-else-if="loaded">No posts found</p>
-  <p v-else>Loading...</p>
+  <button @click="newReview">New Rating</button>
+  <NeighborhoodPostListComponent :areaTitle="areaTitle" />
 </template>
 <style scoped>
 section {
