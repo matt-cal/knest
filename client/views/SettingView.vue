@@ -19,6 +19,7 @@ async function delete_() {
 </script>
 
 <template>
+  <main class ="color">
   <main class="column">
     <h1>{{ currentUsername }}</h1>
     <h2>Your Ratings & Posts</h2>
@@ -27,4 +28,14 @@ async function delete_() {
     <button class="button-error pure-button" @click="delete_">Delete User</button>
     <UpdateUserForm />
   </main>
+</main>
 </template>
+
+<style scoped>
+
+.color {
+  background-color: #caddeb;
+  height: 100vh;
+}
+
+</style>
