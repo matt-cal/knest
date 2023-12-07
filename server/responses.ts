@@ -1,5 +1,6 @@
 import { User } from "./app";
 import { PostAuthorNotMatchError, PostDoc } from "./concepts/post";
+import { ReviewDoc } from "./concepts/review";
 import { Router } from "./framework/router";
 
 /**
@@ -24,6 +25,11 @@ export default class Responses {
   static async posts(posts: PostDoc[]) {
     const authors = await User.idsToUsernames(posts.map((post) => post.author));
     return posts.map((post, i) => ({ ...post, author: authors[i] }));
+  }
+
+  static async reviews(reviews: ReviewDoc[]) {
+    const authors = await User.idsToUsernames(reviews.map((review) => review.author));
+    return reviews.map((review, i) => ({ ...review, author: authors[i] }));
   }
 }
 

@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from "vue";
+import router from "../../router";
 import { fetchy } from "../../utils/fetchy";
 
 const props = defineProps(["areaTitle"]);
+const emit = defineEmits(["submitted"]);
 const content = ref("");
 const area = ref("");
 
@@ -26,6 +28,7 @@ const overall = computed(() => {
 });
 
 const createReview = async () => {
+  emit("submitted");
   try {
     await fetchy("/api/reviews", "POST", {
       body: { content: content.value, area: props.areaTitle, values: values.value },
@@ -33,12 +36,8 @@ const createReview = async () => {
   } catch (_) {
     return;
   }
-  emptyForm();
-};
 
-const emptyForm = () => {
-  content.value = "";
-  area.value = "";
+  void router.push({ name: "Neighborhood", params: { area: props.areaTitle } });
 };
 
 onBeforeMount(async () => {

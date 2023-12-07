@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import RatingComponent from "@/components/Rating/RatingComponent.vue";
-import { onBeforeMount } from "vue";
+import { onBeforeMount, ref } from "vue";
 import { useRoute } from "vue-router";
 import NeighborhoodPostListComponent from "../components/Post/NeighborhoodPostListComponent.vue";
+import ReviewListComponent from "../components/Review/ReviewListComponent.vue";
 import router from "../router";
 
 const currentRoute = useRoute();
 const areaTitle = currentRoute.params.area;
+const viewPosts = ref(true);
 
 async function newPost() {
   void router.push({ name: "CreatePost", params: { area: areaTitle } });
@@ -21,18 +23,22 @@ onBeforeMount(async () => {});
 
 <template>
   <main class="color">
-  <h1>{{ currentRoute.params.area }}</h1>
-  <section>
-    <article>
-      <RatingComponent :area-title="areaTitle" />
-    </article>
-  </section>
-  <button @click="newPost" class="button">New Post</button>
-  <button @click="newReview" class="button">New Rating</button>
-  <NeighborhoodPostListComponent :areaTitle="areaTitle" />
-</main>
+    <h1>{{ currentRoute.params.area }}</h1>
+    <section>
+      <article>
+        <RatingComponent :area-title="areaTitle" />
+      </article>
+    </section>
+    <button @click="newPost" class="button">New Post</button>
+    <button @click="newReview" class="button">New Review</button>
+    <div>
+      <button :class="{ underline: viewPosts }" @click="() => (viewPosts = true)" class="view-button">Posts</button>
+      <button :class="{ underline: !viewPosts }" @click="() => (viewPosts = false)" class="view-button">Reviews</button>
+    </div>
+    <NeighborhoodPostListComponent v-show="viewPosts" :areaTitle="areaTitle" />
+    <ReviewListComponent v-show="!viewPosts" :areaTitle="areaTitle" />
+  </main>
 </template>
-
 
 <style scoped>
 section {
@@ -60,11 +66,17 @@ article {
   padding: 1em;
 }
 
-.underline {
-  text-decoration: underline;
+.view-button {
+  background-color: transparent;
+  border: none;
 }
 
-.color{
+.underline {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.color {
   background-color: #caddeb;
   height: 100vh;
 }
@@ -73,7 +85,7 @@ article {
   justify-content: center;
   display: flex;
   flex-direction: column;
-  background-color:rgb(222, 227, 210);
+  background-color: rgb(222, 227, 210);
   width: 140px;
   border-radius: 20px;
 }

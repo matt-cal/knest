@@ -37,12 +37,12 @@ export default class ReviewConcept {
   async update(_id: ObjectId, update: Partial<ReviewDoc>) {
     this.sanitizeUpdate(update);
     await this.reviews.updateOne({ _id }, update);
-    return { msg: "Post successfully updated!" };
+    return { msg: "Review successfully updated!" };
   }
 
   async delete(_id: ObjectId) {
     await this.reviews.deleteOne({ _id });
-    return { msg: "Post deleted successfully!" };
+    return { msg: "Review deleted successfully!" };
   }
 
   async isAuthor(user: ObjectId, _id: ObjectId) {

@@ -157,7 +157,7 @@ class Routes {
   async getAreaReviews(title: string) {
     const area = await Area.getByTitle(title);
     const reviews = await Review.getReviews({ area: area.title });
-    return reviews;
+    return Responses.reviews(reviews);
   }
 
   @Router.post("/reviews")

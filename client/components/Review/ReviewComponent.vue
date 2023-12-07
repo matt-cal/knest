@@ -10,7 +10,7 @@ const { currentUsername } = storeToRefs(useUserStore());
 
 const deletePost = async () => {
   try {
-    await fetchy(`/api/posts/${props.review._id}`, "DELETE");
+    await fetchy(`/api/reviews/${props.review._id}`, "DELETE");
   } catch {
     return;
   }
@@ -20,11 +20,14 @@ const deletePost = async () => {
 
 <template>
   <p class="author">{{ props.review.author }}</p>
-  <p> Area: {{ props.review.area }}</p>
-  <p>{{ props.review.content }}</p>
+  <p>Area: {{ props.review.area }}</p>
+  <h3>Overall: {{ $props.review.values.overall }}</h3>
+  <p>Affordability: {{ $props.review.values.affordability }}</p>
+  <p>Walkability: {{ $props.review.values.walkability }}</p>
+  <p>Entertainment: {{ $props.review.values.entertainment }}</p>
+  <p>Transportation: {{ $props.review.values.transportation }}</p>
   <div class="base">
     <menu v-if="props.review.author == currentUsername">
-      <li><button class="btn-small pure-button" @click="emit('editReview', props.review._id)">Edit</button></li>
       <li><button class="button-error btn-small pure-button" @click="deletePost">Delete</button></li>
     </menu>
     <article class="timestamp">
