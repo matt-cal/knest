@@ -24,14 +24,38 @@ onBeforeMount(async () => {
 });
 </script>
 <template>
-  <div v-if="!submitted" class="create">
-    <h1>{{ parentAreaTitle }}</h1>
-    <h3>New Post</h3>
-    <div class="form-container">
-      <CreatePostForm @submitted="submit" :areaTitle="areaTitle" />
+  <div class="main">
+    <div v-if="!submitted" class="create">
+      <h1>{{ parentAreaTitle }}</h1>
+      <h3>New Post</h3>
+      <div class="form-container">
+        <CreatePostForm @submitted="submit" :areaTitle="areaTitle" />
+      </div>
+    </div>
+    <div v-if="submitted" class="loading">
+      <h1>Loading...</h1>
     </div>
   </div>
-  <div v-if="submitted" class="loading">
-    <h1>Loading...</h1>
-  </div>
 </template>
+<style scoped>
+.main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-color: #caddeb;
+}
+
+.create {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container {
+  width: 1000px;
+}
+
+h1 {
+  font-size: 48px;
+}
+</style>

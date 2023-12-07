@@ -37,25 +37,58 @@ onBeforeMount(async () => {
 
 <template>
   <form @submit.prevent="createPost(content)">
-    <label for="content">Post Contents:</label>
-    <textarea id="content" v-model="content" placeholder="Create a post!" required> </textarea>
-    <label for="area">Neighborhood:</label>
-    <select v-model="postAreaTitle" id="area">
-      <option :key="props.areaTitle" :value="props.areaTitle">{{ $props.areaTitle }}</option>
-      <option v-for="a in areas" :key="a" :value="a">{{ a }}</option>
-    </select>
-    <button type="submit" class="pure-button-primary pure-button">Create Post</button>
+    <div class="neighborhood">
+      <label for="area">Neighborhood:</label>
+      <select v-model="postAreaTitle" id="area">
+        <option :key="props.areaTitle" :value="props.areaTitle">{{ $props.areaTitle }}</option>
+        <option v-for="a in areas" :key="a" :value="a">{{ a }}</option>
+      </select>
+    </div>
+    <textarea id="content" v-model="content" placeholder="Write something..." required> </textarea>
+    <div class="submit-container">
+      <button type="submit" class="pure-button-primary pure-button submit">Publish</button>
+    </div>
   </form>
 </template>
 
 <style scoped>
 form {
-  background-color: var(--base-bg);
+  background-color: transparent;
   border-radius: 1em;
   display: flex;
   flex-direction: column;
   gap: 0.5em;
   padding: 1em;
+}
+
+.submit-container {
+  display: flex;
+  justify-content: center;
+}
+
+.submit {
+  width: 100px;
+  background-color: rgb(53, 55, 89);
+  border-radius: 8px;
+}
+
+#area {
+  height: 32px;
+  width: 155px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.neighborhood {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+#content {
+  height: 300px;
+  border-radius: 20px;
+  padding: 16px;
 }
 
 textarea {
