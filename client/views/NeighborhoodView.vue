@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import CreateForm from "@/components/Form/CreateForm.vue";
 import EditPostForm from "@/components/Post/EditPostForm.vue";
 import PostComponent from "@/components/Post/PostComponent.vue";
-import Review from "@/components/Review/CreateReview.vue";
 import RatingComponent from "@/components/Rating/RatingComponent.vue";
+import Review from "@/components/Review/CreateReview.vue";
 import { fetchy } from "@/utils/fetchy";
 import { computed, onBeforeMount, ref } from "vue";
 import { useRoute } from "vue-router";
@@ -81,7 +82,8 @@ onBeforeMount(async () => {
   </section>
   <p v-else-if="loaded">No posts found</p>
   <p v-else>Loading...</p>
-  <Review />
+  <CreateForm/>
+  <Review/>
 </template>
 <style scoped>
 section {

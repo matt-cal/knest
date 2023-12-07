@@ -9,10 +9,12 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "lib": ["ESNext", "dom"],
+    "allowJs": true,
     "paths": {
       "@/*": ["./*"]
     },
     "outDir": "../dist/client"
   },
   "include": ["./**/*.ts", "./**/*.vue"]
+
 }
