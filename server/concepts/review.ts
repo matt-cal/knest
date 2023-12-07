@@ -11,14 +11,15 @@ export interface ReviewDoc extends BaseDoc {
   author: ObjectId;
   content: string;
   area: string;
+  values: Map<string, number>;
   options?: PostOptions;
 }
 
 export default class ReviewConcept {
   public readonly reviews = new DocCollection<ReviewDoc>("reviews");
 
-  async create(author: ObjectId, content: string, area: string, options?: PostOptions) {
-    const _id = await this.reviews.createOne({ author, content, area, options });
+  async create(author: ObjectId, content: string, area: string, values: Map<string, number>, options?: PostOptions) {
+    const _id = await this.reviews.createOne({ author, content, area, values, options });
     return { msg: "Review successfully created!", review: await this.reviews.readOne({ _id }) };
   }
 

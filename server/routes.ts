@@ -152,12 +152,20 @@ class Routes {
     return reviews;
   }
 
+  // get the reviews linked to the area with the given title
+  @Router.get("/areas/:title/reviews")
+  async getAreaReviews(title: string) {
+    const area = await Area.getByTitle(title);
+    const reviews = await Review.getReviews({ area: area.title });
+    return reviews;
+  }
+
   @Router.post("/reviews")
-  async createReview(session: WebSessionDoc, content: string, area: string, options?: PostOptions) {
+  async createReview(session: WebSessionDoc, content: string, area: string, values: Map<string, number>, options?: PostOptions) {
     const user = WebSession.getUser(session);
     // assert area exists
     await Area.getByTitle(area);
-    const created = await Review.create(user, content, area, options);
+    const created = await Review.create(user, content, area, values, options);
     return { msg: created.msg, review: created.review };
   }
 
