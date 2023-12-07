@@ -14,7 +14,7 @@ const sortByUpvotes = ref(true);
 const posts = computed(() => (sortByUpvotes.value ? postsByUpvotes.value : postsByDate.value));
 const editing = ref("");
 const currentRoute = useRoute();
-const areaTitle = currentRoute.params.area;
+const areaTitle = currentRoute.areaTitleparams.area;
 
 async function getPosts() {
   let postResults;

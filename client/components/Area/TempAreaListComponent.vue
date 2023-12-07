@@ -20,15 +20,24 @@ onBeforeMount(async () => {
 });
 </script>
 <template>
-  <div class="base">
+  <div class="createArea">
     <CreateAreaForm @updateAreas="getAreas" />
+  </div>
+  <div class="base">
     <TempAreaComponent v-for="area in areas" :key="area._id.toString()" :area="area" @updateAreas="getAreas" />
   </div>
 </template>
 
 <style scoped>
 .base {
-  margin-left: 16px;
-  width: 400px;
+  margin: auto;
+  width: 700px;
+  justify-self: center;
+  justify-content: center;
+}
+.createArea{
+  margin:auto;
+  width: 900px;
+  justify-content: center;
 }
 </style>

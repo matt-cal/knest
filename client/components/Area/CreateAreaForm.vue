@@ -43,7 +43,6 @@ const emptyForm = () => {
 .alignment{
   display:flex;
   justify-content:center;
-  justify-align:center;
 
 }
 </style>

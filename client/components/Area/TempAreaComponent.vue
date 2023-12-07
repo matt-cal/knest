@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import PostComponent from "../Post/PostComponent.vue";
-import { onBeforeMount, ref } from "vue";
 import { fetchy } from "@/utils/fetchy";
+import { onBeforeMount, ref } from "vue";
+import PostComponent from "../Post/PostComponent.vue";
 
 const emit = defineEmits(["updateAreas"]);
 const props = defineProps(["area"]);
@@ -32,10 +32,18 @@ onBeforeMount(async () => {
 </script>
 <template>
   <div class="base">
-    <div>Title: {{ $props.area.title }}</div>
+    <div class="center">
+    <div>{{ $props.area.title }}</div>
+    </div>
+    <div class="parent">
+    <div>{{ parentAreaTitle ? parentAreaTitle : "N/A" }}</div>
+    </div>
+    <div class="location">
     <div>Location: {{ $props.area.location }}</div>
-    <div>Parent Area: {{ parentAreaTitle ? parentAreaTitle : "N/A" }}</div>
+    </div>
+    <div class="button">
     <button @click="deleteArea">Delete</button>
+  </div>
   </div>
   <div class="posts">
     <PostComponent v-for="post in posts" :key="post._id" :post="post" @refreshPosts="getPosts" />
@@ -44,12 +52,47 @@ onBeforeMount(async () => {
 </template>
 
 <style scoped>
+
+.button{
+  justify-content: center;
+  margin:auto;
+  display:flex;
+  padding-top: 5px;
+}
 .base {
-  background-color: rgb(222, 222, 222);
+  background-color: #b3a98d;
   padding: 8px;
-  margin: 8px 0;
+  margin: auto;
+  justify-content: center;
+  justify-items: center;
+
 }
 
+.center{
+  justify-content: center;
+  margin:auto;
+  display: flex;
+  font-size: 25px;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+
+.parent{
+  justify-content: center;
+  margin:auto;
+  display:flex;
+  font-size: 20px;
+  padding-top: 5px;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.location{
+  justify-content: center;
+  margin:auto;
+  display: flex;
+  font-size: 13px;
+  padding-top: 5px;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
 .posts {
   padding-left: 32px;
 }
