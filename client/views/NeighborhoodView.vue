@@ -2,6 +2,7 @@
 import EditPostForm from "@/components/Post/EditPostForm.vue";
 import PostComponent from "@/components/Post/PostComponent.vue";
 import Review from "@/components/Review/CreateReview.vue";
+import RatingComponent from "@/components/Rating/RatingComponent.vue";
 import { fetchy } from "@/utils/fetchy";
 import { computed, onBeforeMount, ref } from "vue";
 import { useRoute } from "vue-router";
@@ -61,6 +62,11 @@ onBeforeMount(async () => {
 
 <template>
   <h1>{{ currentRoute.params.area }}</h1>
+  <section>
+    <article>
+      <RatingComponent :area-title="areaTitle"/>
+    </article>
+  </section>
   <button @click="newPost">New Post</button>
   <section class="posts" v-if="loaded && posts.length !== 0">
     <span>
