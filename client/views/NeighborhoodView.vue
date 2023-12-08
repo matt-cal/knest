@@ -22,28 +22,77 @@ onBeforeMount(async () => {});
 </script>
 
 <template>
-  <main class="color">
+  <main class="main color">
     <h1>{{ currentRoute.params.area }}</h1>
     <section>
       <article>
         <RatingComponent :area-title="areaTitle" />
       </article>
     </section>
-    <button @click="newPost" class="button">New Post</button>
-    <button @click="newReview" class="button">New Review</button>
-    <div>
-      <button :class="{ underline: viewPosts }" @click="() => (viewPosts = true)" class="view-button">Posts</button>
-      <button :class="{ underline: !viewPosts }" @click="() => (viewPosts = false)" class="view-button">Reviews</button>
+    <div class="buttons-row">
+      <div class="content-buttons">
+        <button :class="{ underline: viewPosts }" @click="() => (viewPosts = true)" class="view-button">Posts</button>
+        <button :class="{ underline: !viewPosts }" @click="() => (viewPosts = false)" class="view-button">Reviews</button>
+      </div>
+      <div class="content-buttons">
+        <button @click="newPost" class="button new">New Post</button>
+        <button @click="newReview" class="button new">New Review</button>
+      </div>
     </div>
-    <NeighborhoodPostListComponent v-show="viewPosts" :areaTitle="areaTitle" />
-    <ReviewListComponent v-show="!viewPosts" :areaTitle="areaTitle" />
+    <div class="content color">
+      <NeighborhoodPostListComponent v-show="viewPosts" :areaTitle="areaTitle" />
+      <ReviewListComponent v-show="!viewPosts" :areaTitle="areaTitle" />
+    </div>
   </main>
 </template>
 
 <style scoped>
+.buttons-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content-buttons {
+  display: flex;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding-bottom: 32px;
+}
+
+.new {
+  margin: 8px;
+  width: 120px;
+  height: 28px;
+  background-color: rgb(53, 55, 89);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+}
+
+article,
+.buttons-row,
+.content {
+  width: 900px;
+}
+
 section {
   display: flex;
   flex-direction: column;
+}
+
+h1 {
+  margin-top: 0;
+  padding-top: 16px;
+}
+
+button {
+  cursor: pointer;
 }
 
 section,
@@ -62,13 +111,10 @@ article {
   padding: 1em;
 }
 
-.posts {
-  padding: 1em;
-}
-
 .view-button {
   background-color: transparent;
   border: none;
+  font-size: 20px;
 }
 
 .underline {
@@ -78,15 +124,5 @@ article {
 
 .color {
   background-color: #caddeb;
-  height: 100vh;
-}
-
-.button {
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(222, 227, 210);
-  width: 140px;
-  border-radius: 20px;
 }
 </style>

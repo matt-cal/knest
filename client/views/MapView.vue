@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import AreaPolygons from '../AreaPolygons.json';
+import AreaPolygons from "../AreaPolygons.json";
 import MapAreaComponent from "../components/Area/MapAreaComponent.vue";
-
-
 
 interface location {
   lng: number;
@@ -19,7 +17,7 @@ function setPlace(data: any) {
 </script>
 
 <template>
-  <main class = "color">
+  <main class="color">
     <GMapAutocomplete placeholder="Pick a Location" @place_changed="setPlace"> </GMapAutocomplete>
     <GMapMap :center="loc" :zoom="13" style="left: 5vw; width: 90vw; height: 90vh">
       <MapAreaComponent :paths="AreaPolygons.backBay" :areaTitle="'Back Bay'" />
@@ -49,8 +47,7 @@ function setPlace(data: any) {
 </template>
 
 <style scoped>
-
-.map{
+.map {
   height: auto;
 }
 
@@ -58,4 +55,7 @@ function setPlace(data: any) {
   background-color: #caddeb;
 }
 
+main {
+  padding-top: 16px;
+}
 </style>
