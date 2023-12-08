@@ -20,9 +20,8 @@ const deletePost = async () => {
 </script>
 
 <template>
-  <p class="author">{{ props.post.author }}</p>
-  <p>Area: {{ props.post.area }}</p>
-  <p>{{ props.post.content }}</p>
+  <p class="area">Area: {{ props.post.area }}</p>
+  <p class="content">{{ props.post.content }}</p>
   <div class="base">
     <menu v-if="props.post.author == currentUsername">
       <li><button class="btn-small pure-button" @click="emit('editPost', props.post._id)">Edit</button></li>
@@ -39,6 +38,11 @@ const deletePost = async () => {
 <style scoped>
 p {
   margin: 0em;
+}
+
+.area {
+  color: rgb(63, 63, 63);
+  margin-bottom: 10px;
 }
 
 .author {

@@ -19,8 +19,7 @@ const deletePost = async () => {
 </script>
 
 <template>
-  <p class="author">{{ props.review.author }}</p>
-  <p>Area: {{ props.review.area }}</p>
+  <p class="area">Area: {{ props.review.area }}</p>
   <h3>Overall: {{ $props.review.values.overall }}</h3>
   <p>Affordability: {{ $props.review.values.affordability }}</p>
   <p>Walkability: {{ $props.review.values.walkability }}</p>
@@ -40,6 +39,10 @@ const deletePost = async () => {
 <style scoped>
 p {
   margin: 0em;
+}
+
+.area {
+  color: rgb(63, 63, 63);
 }
 
 .author {
@@ -64,6 +67,7 @@ menu {
 }
 
 .base {
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
