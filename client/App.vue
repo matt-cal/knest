@@ -24,7 +24,7 @@ onBeforeMount(async () => {
 
 <template>
   <header>
-    <nav>
+    <nav id="NavBar">
       <div class="title">
         <!-- <img src="@/assets/images/logo.svg" /> -->
         <RouterLink :to="{ name: 'Home' }">
@@ -85,7 +85,7 @@ img {
 
 a {
   font-size: large;
-  color: black;
+  color: white;
   text-decoration: none;
 }
 
@@ -100,5 +100,18 @@ ul {
 
 .underline {
   text-decoration: underline;
+}
+
+#NavBar {
+  position: fixed;
+  left: 0;
+  top: 0; /* top left corner should start at topmost spot */
+  width: 100vw; /* take up the full browser width */
+  z-index: 200;
+  box-shadow: 0 4px 2px -2px rgb(151, 151, 151);
+}
+
+.toast {
+  margin-top: 73.4px;
 }
 </style>
