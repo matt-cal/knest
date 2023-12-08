@@ -5,10 +5,12 @@ import { useRoute } from "vue-router";
 import NeighborhoodPostListComponent from "../components/Post/NeighborhoodPostListComponent.vue";
 import ReviewListComponent from "../components/Review/ReviewListComponent.vue";
 import router from "../router";
+import { fetchy } from "../utils/fetchy";
 
 const currentRoute = useRoute();
-const areaTitle = currentRoute.params.area;
+let areaTitle = currentRoute.params.area;
 const viewPosts = ref(true);
+const parentAreaTitle = ref("");
 
 async function newPost() {
   void router.push({ name: "CreatePost", params: { area: areaTitle } });
@@ -18,7 +20,15 @@ async function newReview() {
   void router.push({ name: "CreateReview", params: { area: areaTitle } });
 }
 
-onBeforeMount(async () => {});
+onBeforeMount(async () => {
+  // Typescript complaining about type of currentRoute.params.area
+  if (Array.isArray(areaTitle)) {
+    areaTitle = areaTitle[0];
+  }
+  const a = (await fetchy("/api/areas", "GET", { query: { title: areaTitle } }))[0];
+  const parent = (await fetchy("/api/areas", "GET", { query: { _id: a.parentArea } }))[0];
+  parentAreaTitle.value = parent.title;
+});
 </script>
 
 <template>

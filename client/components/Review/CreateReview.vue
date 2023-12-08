@@ -50,7 +50,7 @@ onBeforeMount(async () => {
 
 <template>
   <div class="sliders-container">
-    <h3>Overall: {{ overall }}</h3>
+    <h3 class="overall">Overall: {{ overall }}</h3>
     <div class="slider-input">
       <p>Affordability</p>
       <div>
@@ -120,7 +120,9 @@ onBeforeMount(async () => {
       </div>
     </div>
   </div>
-  <button @click="createReview">Submit</button>
+  <div class="submit-container">
+    <button @click="createReview" class="pure-button-primary pure-button submit">Submit</button>
+  </div>
 </template>
 
 <style scoped>
@@ -131,6 +133,26 @@ form {
   flex-direction: column;
   gap: 0.5em;
   padding: 1em;
+}
+
+p {
+  font-weight: bold;
+}
+
+.overall {
+  font-size: 24px;
+}
+
+.submit-container {
+  display: flex;
+  justify-content: center;
+}
+
+.submit {
+  margin-top: 16px;
+  width: 100px;
+  background-color: rgb(53, 55, 89);
+  border-radius: 8px;
 }
 
 textarea {
@@ -156,7 +178,7 @@ textarea {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 32px;
+  gap: 24px;
 }
 
 .slider-input {
