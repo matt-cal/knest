@@ -53,10 +53,10 @@ onBeforeMount(async () => {
 
 <template>
   <section class="posts" v-if="loaded && posts.length !== 0">
-    <span>
+    <span class="sort">
       <p>Sort By:</p>
-      <button :class="{ underline: sortByUpvotes }" @click="() => (sortByUpvotes = true)">Upvotes</button>
-      <button :class="{ underline: !sortByUpvotes }" @click="() => (sortByUpvotes = false)">Date</button>
+      <button :class="{ underline: sortByUpvotes }" @click="() => (sortByUpvotes = true)" class="filter">Upvotes</button>
+      <button :class="{ underline: !sortByUpvotes }" @click="() => (sortByUpvotes = false)" class="filter">Date</button>
     </span>
     <article v-for="post in posts" :key="post._id">
       <PostComponent v-if="editing !== post._id" :post="post" @refreshPosts="getPosts" @editPost="updateEditing" />
@@ -76,7 +76,7 @@ section {
 section,
 p,
 .row {
-  margin: 0 auto;
+  margin: 0;
   max-width: 60em;
 }
 
@@ -89,11 +89,26 @@ article {
   padding: 1em;
 }
 
-.posts {
-  padding: 1em;
-}
-
 .underline {
   text-decoration: underline;
+  font-weight: bold;
+}
+
+button {
+  cursor: pointer;
+}
+
+.sort {
+  width: 900px;
+  font-size: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.filter {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
 }
 </style>
