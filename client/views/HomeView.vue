@@ -15,6 +15,7 @@ async function goToMap() {
   <main class="align">
     <section>
       <h1 v-if="isLoggedIn">Welcome {{ currentUsername }}!</h1>
+      <h1 v-else>Welcome, Start Exploring</h1>
       <SearchComponent />
       <div class="padding">
         <button @click="goToMap" class="button">Explore Map</button>
