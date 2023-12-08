@@ -1,26 +1,24 @@
 <script setup lang="ts">
 import { useUserStore } from "@/stores/user";
 import { storeToRefs } from "pinia";
+import SearchComponent from "../components/SearchComponent.vue";
 import router from "../router";
 
 const { currentUsername, isLoggedIn } = storeToRefs(useUserStore());
 
-async function goToMap(){
-  void router.push({ name: "Map"});
+async function goToMap() {
+  void router.push({ name: "Map" });
 }
 </script>
-
 
 <template>
   <main class="align">
     <section>
       <h1 v-if="isLoggedIn">Welcome {{ currentUsername }}!</h1>
-      <h1 v-else>Please login!</h1>
+      <SearchComponent />
       <div class="padding">
-      <button @click="goToMap" class="button">
-        Explore Map
-      </button>
-    </div>
+        <button @click="goToMap" class="button">Explore Map</button>
+      </div>
     </section>
   </main>
 </template>
@@ -28,10 +26,10 @@ async function goToMap(){
 <style scoped>
 h1 {
   text-align: center;
-  margin:0;
+  margin: 0;
   padding: 10px;
 }
-.align{
+.align {
   justify-content: center;
   background-color: #caddeb;
   height: 100vh;
@@ -45,7 +43,7 @@ h1 {
   display: flex;
   flex-direction: column;
 }
-.padding{
-  padding-top: 25%;
+.padding {
+  padding-top: 5%;
 }
 </style>

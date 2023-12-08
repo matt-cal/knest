@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from "vue";
-import { AreaDoc } from "../../../server/concepts/area";
 import { fetchy } from "../../utils/fetchy";
 import CreateAreaForm from "./CreateAreaForm.vue";
 import TempAreaComponent from "./TempAreaComponent.vue";
 
-let areas = ref<Array<AreaDoc>>([]);
+let areas = ref<Array<Record<string, string>>>([]);
 
 async function getAreas() {
   try {
@@ -35,8 +34,8 @@ onBeforeMount(async () => {
   justify-self: center;
   justify-content: center;
 }
-.createArea{
-  margin:auto;
+.createArea {
+  margin: auto;
   width: 900px;
   justify-content: center;
 }
