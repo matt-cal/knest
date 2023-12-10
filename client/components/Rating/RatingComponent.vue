@@ -12,9 +12,8 @@ async function getAverage() {
   try {
     data = await fetchy(`/api//areas/${props.areaTitle}/reviews`, "GET");
 
-
     if (data.length > 0) {
-      average = {...data[0].values};
+      average = { ...data[0].values };
 
       for (const name in data[0].values) {
         for (let i = 1; i < data.length; i++) {
@@ -24,11 +23,9 @@ async function getAverage() {
         }
         average[name] = Math.round(average[name] / data.length);
       }
-      console.log(average);
-      console.log(data)
-    } 
+    }
   } catch (e) {
-    console.log(e);
+    return;
   }
 }
 
@@ -36,7 +33,6 @@ onBeforeMount(async () => {
   await getAverage();
   loaded.value = true;
 });
-
 </script>
 <template>
   <p v-if="loaded && data.length == 0">No one has rated this neighborhood... You can be the first!</p>

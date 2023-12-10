@@ -30,6 +30,20 @@ export default class ReviewConcept {
     return reviews;
   }
 
+  /**
+   * get all reviews for all areas given
+   */
+  async getAllReviews(areas: string[]) {
+    const reviews: ReviewDoc[] = [];
+    for (const area of areas) {
+      const areaReviews = await this.getReviews({ area: area });
+      for (const r of areaReviews) {
+        reviews.push(r);
+      }
+    }
+    return reviews;
+  }
+
   async getByArea(area: string) {
     return await this.getReviews({ area });
   }

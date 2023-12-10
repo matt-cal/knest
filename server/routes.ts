@@ -160,6 +160,17 @@ class Routes {
     return Responses.reviews(reviews);
   }
 
+  // get all reviews of all of the subareas of area with given title
+  // Given Boston, will return all reviews that are linked to neighborhoods of Boston
+  @Router.get("/areas/:title/subareaReviews")
+  async getSubareaReviews(title: string) {
+    const _id = (await Area.getByTitle(title))._id;
+    const subareas = await Area.getSubareas(_id);
+    const subareaTitles = subareas.map((a) => a.title);
+    const reviews = await Review.getAllReviews(subareaTitles);
+    return Responses.reviews(reviews);
+  }
+
   @Router.post("/reviews")
   async createReview(session: WebSessionDoc, content: string, area: string, values: Map<string, number>, options?: PostOptions) {
     const user = WebSession.getUser(session);

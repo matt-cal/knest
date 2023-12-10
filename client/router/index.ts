@@ -8,6 +8,7 @@ import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import MapView from "../views/MapView.vue";
 import NeighborhoodViewVue from "../views/NeighborhoodView.vue";
+import CityView from "../views/CityView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 import SettingView from "../views/SettingView.vue";
 
@@ -46,6 +47,11 @@ const router = createRouter({
       path: "/neighborhood/:area",
       name: "Neighborhood",
       component: NeighborhoodViewVue,
+    },
+    {
+      path: "/city/:area",
+      name: "City",
+      component: CityView,
     },
     {
       path: "/CreatePost/:area",
