@@ -2,13 +2,13 @@ import { storeToRefs } from "pinia";
 import { createRouter, createWebHistory } from "vue-router";
 
 import { useUserStore } from "@/stores/user";
+import CityView from "../views/CityView.vue";
 import CreatePostViewVue from "../views/CreatePostView.vue";
 import CreateReviewViewVue from "../views/CreateReviewView.vue";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import MapView from "../views/MapView.vue";
 import NeighborhoodViewVue from "../views/NeighborhoodView.vue";
-import CityView from "../views/CityView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 import SettingView from "../views/SettingView.vue";
 
@@ -47,6 +47,7 @@ const router = createRouter({
       path: "/neighborhood/:area",
       name: "Neighborhood",
       component: NeighborhoodViewVue,
+      meta: { requiresAuth: true },
     },
     {
       path: "/city/:area",
