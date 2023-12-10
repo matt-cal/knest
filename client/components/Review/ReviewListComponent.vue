@@ -3,14 +3,18 @@ import ReviewComponent from "@/components/Review/ReviewComponent.vue";
 import { fetchy } from "@/utils/fetchy";
 import { onBeforeMount, ref } from "vue";
 
-const props = defineProps(["areaTitle"]);
+const props = defineProps(["areaTitle", "isCity"]);
 const loaded = ref(false);
 let reviews = ref<Array<Record<string, string>>>([]);
 
 async function getReviews() {
   let reviewResults;
   try {
-    reviewResults = await fetchy(`/api/areas/${props.areaTitle}/reviews`, "GET");
+    if (props.isCity) {
+      reviewResults = await fetchy(`/api/areas/${props.areaTitle}/subareaReviews`, "GET");
+    } else {
+      reviewResults = await fetchy(`/api/areas/${props.areaTitle}/reviews`, "GET");
+    }
   } catch (_) {
     return;
   }

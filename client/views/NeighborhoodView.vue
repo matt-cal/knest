@@ -20,6 +20,10 @@ async function newReview() {
   void router.push({ name: "CreateReview", params: { area: areaTitle } });
 }
 
+async function viewCity() {
+  void router.push({ name: "City", params: { area: parentAreaTitle.value } });
+}
+
 onBeforeMount(async () => {
   // Typescript complaining about type of currentRoute.params.area
   if (Array.isArray(areaTitle)) {
@@ -35,6 +39,10 @@ onBeforeMount(async () => {
   <main class="main color">
     <h1>{{ currentRoute.params.area }}</h1>
     <section>
+      <div class="ratings-title">
+        <h2>Average Ratings</h2>
+        <button class="see-all button new" @click="viewCity">See all ratings for {{ parentAreaTitle }}</button>
+      </div>
       <article>
         <RatingComponent :area-title="areaTitle" />
       </article>
@@ -134,5 +142,16 @@ article {
 
 .color {
   background-color: #caddeb;
+}
+
+.ratings-title {
+  width: 900px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.see-all {
+  width: 220px;
 }
 </style>
