@@ -5,7 +5,7 @@ import { fetchy } from "../../utils/fetchy";
 import { formatDate } from "../../utils/formatDate";
 
 const props = defineProps(["review"]);
-const emit = defineEmits(["editReview", "refreshReviews"]);
+const emit = defineEmits(["refreshReviews"]);
 const { currentUsername } = storeToRefs(useUserStore());
 
 const deletePost = async () => {
@@ -30,8 +30,7 @@ const deletePost = async () => {
       <li><button class="button-error btn-small pure-button" @click="deletePost">Delete</button></li>
     </menu>
     <article class="timestamp">
-      <p v-if="props.review.dateCreated !== props.review.dateUpdated">Edited on: {{ formatDate(props.review.dateUpdated) }}</p>
-      <p v-else>Created on: {{ formatDate(props.review.dateCreated) }}</p>
+      <p>Created on: {{ formatDate(props.review.dateCreated) }}</p>
     </article>
   </div>
 </template>

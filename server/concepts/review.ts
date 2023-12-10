@@ -31,7 +31,11 @@ export default class ReviewConcept {
   }
 
   async getByArea(area: string) {
-    return await this.getReviews({ area });
+    return await this.getReviews({ area: area });
+  }
+
+  async getByAuthor(author: ObjectId) {
+    return await this.getReviews({ author: author });
   }
 
   async update(_id: ObjectId, update: Partial<ReviewDoc>) {

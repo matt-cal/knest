@@ -70,6 +70,13 @@ class Routes {
     return Responses.posts(posts);
   }
 
+  @Router.get("/userPosts")
+  async getUserPosts(session: WebSessionDoc) {
+    const user = WebSession.getUser(session);
+    const posts = await Post.getByAuthor(user);
+    return Responses.posts(posts);
+  }
+
   @Router.post("/posts")
   async createPost(session: WebSessionDoc, content: string, area: string, options?: PostOptions) {
     const user = WebSession.getUser(session);
@@ -150,6 +157,13 @@ class Routes {
       reviews = "Area does not exist";
     }
     return reviews;
+  }
+
+  @Router.get("/userReviews")
+  async getUserReviews(session: WebSessionDoc) {
+    const user = WebSession.getUser(session);
+    const reviews = await Review.getByAuthor(user);
+    return Responses.reviews(reviews);
   }
 
   // get the reviews linked to the area with the given title
