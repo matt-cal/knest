@@ -11,6 +11,7 @@ const { isLoggedIn } = storeToRefs(useUserStore());
 const loaded = ref(false);
 let posts = ref<Array<Record<string, string>>>([]);
 let editing = ref("");
+const reveal = ref(true);
 
 async function getPosts() {
   let postResults;
@@ -34,16 +35,19 @@ onBeforeMount(async () => {
 
 <template>
   <div class="row">
-    <h2>Your Posts:</h2>
+    <h2>Your Posts: <button v-if="posts.length !== 0" class="dropdown" :onclick="() => {reveal = !reveal}">
+    <img v-if="reveal" class="dropdown-image" src="@/assets/images/dropdown.png" />
+    <img v-else class="dropdown-image" src="@/assets/images/dropdownUpsideDown.png" />
+  </button></h2>
   </div>
-  <section class="posts" v-if="loaded && posts.length !== 0">
+  <section class="posts" v-if="loaded && posts.length !== 0 && reveal">
     <article v-for="post in posts" :key="post._id">
       <PostComponent v-if="editing !== post._id" :post="post" @refreshPosts="getPosts" @editPost="updateEditing" />
       <EditPostForm v-else :post="post" @refreshPosts="getPosts" @editPost="updateEditing" />
     </article>
   </section>
-  <p v-else-if="loaded">No posts found</p>
-  <p v-else>Loading...</p>
+  <p v-else-if="loaded && reveal">No posts found</p>
+  <p v-else-if="reveal">Loading...</p>
 </template>
 
 <style scoped>
@@ -58,6 +62,22 @@ p,
 .row {
   margin: 0 auto;
   max-width: 60em;
+}
+
+.dropdown {
+  width: 1em;
+  height: 1em;
+  border: none;
+  background: #0000;
+  outline: none;
+  padding: 0;
+}
+
+.dropdown-image {
+  width: 1em;
+  height: 1em;
+  top: 0.2em;
+  position: relative;
 }
 
 article {
