@@ -31,7 +31,7 @@ const deletePost = async () => {
       <p v-if="props.post.dateCreated !== props.post.dateUpdated">Edited on: {{ formatDate(props.post.dateUpdated) }}</p>
       <p v-else>Created on: {{ formatDate(props.post.dateCreated) }}</p>
     </article>
-    <UpvoteComponent :post="props.post._id" />
+    <UpvoteComponent :post="props.post._id" class="spacing" />
   </div>
 </template>
 
@@ -57,6 +57,10 @@ menu {
   gap: 1em;
   padding: 0;
   margin: 0;
+}
+
+.spacing{
+  margin-left: 30px;
 }
 
 .timestamp {
