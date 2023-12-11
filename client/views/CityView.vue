@@ -33,6 +33,15 @@ async function getAverage() {
   }
 }
 
+function toTitleCase(str: string) {
+  return str.replace(
+    /\w\S*/g,
+    function(txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    }
+  );
+}
+
 onBeforeMount(async () => {
   await getAverage();
   loaded.value = true;
@@ -48,7 +57,7 @@ onBeforeMount(async () => {
     <article v-else>
       <h1 v-if="!loaded">Loading...</h1>
       <div v-for="(value, name) in average" :key="name">
-        <p>average {{ name }}: {{ value }} / 100</p>
+        <p>{{ toTitleCase(String(name)) }}: {{ value }} / 100</p>
       </div>
     </article>
     <div class="reviews">

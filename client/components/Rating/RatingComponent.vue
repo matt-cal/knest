@@ -29,6 +29,15 @@ async function getAverage() {
   }
 }
 
+function toTitleCase(str: string) {
+  return str.replace(
+    /\w\S*/g,
+    function(txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    }
+  );
+}
+
 onBeforeMount(async () => {
   await getAverage();
   loaded.value = true;
@@ -37,6 +46,6 @@ onBeforeMount(async () => {
 <template>
   <p v-if="loaded && data.length == 0">No one has rated this neighborhood... You can be the first!</p>
   <article v-for="(value, name) in average" :key="name">
-    <p>average {{ name }}: {{ value }} / 100</p>
+    <p>{{ toTitleCase(String(name)) }}: {{ value }} / 100</p>
   </article>
 </template>
