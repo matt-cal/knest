@@ -47,7 +47,6 @@ const router = createRouter({
       path: "/neighborhood/:area",
       name: "Neighborhood",
       component: NeighborhoodViewVue,
-      meta: { requiresAuth: true },
     },
     {
       path: "/city/:area",
